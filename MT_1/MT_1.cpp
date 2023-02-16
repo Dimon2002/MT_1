@@ -69,7 +69,7 @@ int ConstTable::IsContains(int Index)
 
 void ConstTable::PrintTable(const string& outFileName)
 {
-	ofstream fout("WordsOut.txt");
+	ofstream fout(outFileName);
 	int i = 0;
 	for (auto& el : _table)
 		fout << ++i << " " << el << endl;
@@ -177,7 +177,7 @@ void VariableTable::SetAttribute(const string& NameVariable, bool TypeVariable, 
 
 void VariableTable::PrintTable(const string& outFileName)
 {
-	ofstream fout("WordsOut.txt");
+	ofstream fout(outFileName);
 	int i = 0;
 	for (auto& el : _table)
 		fout << "[" << ++i << "] " << el << endl;
