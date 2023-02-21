@@ -114,7 +114,10 @@ struct Lexeme
 	{
 		if (!el.name.empty())
 		{
-			return out << "{ " << el.name << ", " << el.type << ", " << el.value << " }" << endl;
+			return out << "{ "
+				<< el.name << ", "
+				<< (el.type ? string("int") : string("Unknow type")) << ", "
+				<< (el.value == -1 ? -1 : el.value) << " }" << endl;
 		}
 		return out << "The element doesn`t exist!";
 	}
@@ -177,14 +180,13 @@ void VariableTable::PrintTable(const string& outFileName)
 	fout.close();
 }
 
-
 int VariableTable::IsContains(const string& NameEl)
 {
-	if (_table.size() == 0) 
+	if (_table.size() == 0)
 		return -1;
 
 	auto x = find(_table.begin(), _table.end() - 1, NameEl);
-	if (*x != _table.back().name || _table.back().name == NameEl)
+	if (*x != _table.back() || _table.back().name == NameEl)
 		return distance(_table.begin(), x);
 	return -1;
 }
@@ -237,6 +239,6 @@ int main()
 	VariableTable t2;
 	auto x = t2.SearchByWord("Value1");
 	cout << x << endl;
-	t2.SetAttribute("Value1", true, 100);
+	// t2.SetAttribute("Value1", true, 100);
 	t2.PrintTable(Keywords + OutFileFormat + Format);
 }
