@@ -5,11 +5,11 @@
 
 using namespace std;
 
-static const string Base = ".txt";
+static const string Format = ".txt";
 static const string Keywords = "Keywords";
 static const string Separators = "Separators";
 static const string OperationSigns = "OperationSigns";
-static const string TableVariables = "Variables";
+static const string OutFileFormat = "Out";
 
 #pragma region ConstTable
 
@@ -96,6 +96,7 @@ struct Lexeme
 		name = Name;
 	}
 
+	Lexeme() {}
 	friend bool operator == (const Lexeme& leftOperand, const Lexeme& rightOperand)
 	{
 		return
@@ -122,9 +123,9 @@ struct Lexeme
 class VariableTable
 {
 public:
-	VariableTable(const string& fileName)
+	VariableTable()
 	{
-		CreateTable(fileName);
+		CreateEmptyTable();
 	};
 	~VariableTable()
 	{
@@ -143,24 +144,16 @@ public:
 private:
 	vector<Lexeme> _table;
 
-	void CreateTable(const string& FileName);
+	void CreateEmptyTable();
 	void AddingElement(Lexeme El);
 
 	int IsContains(const string& NameEl);
 	int IsContains(const int& Index);
 };
 
-void VariableTable::CreateTable(const string& FileName)
+void VariableTable::CreateEmptyTable()
 {
-	ifstream fin(FileName);
-	if (!fin.is_open())
-		cerr << "File didn't openned";
-
-	string s;
-	while (fin >> s)
-		_table.push_back(Lexeme(s));
-
-	fin.close();
+	_table.resize(0);
 }
 
 void VariableTable::AddingElement(Lexeme El)
@@ -187,7 +180,10 @@ void VariableTable::PrintTable(const string& outFileName)
 
 int VariableTable::IsContains(const string& NameEl)
 {
-	auto x = find(_table.begin(), _table.end() - 1, Lexeme(NameEl).name);
+	if (_table.size() == 0) 
+		return -1;
+
+	auto x = find(_table.begin(), _table.end() - 1, NameEl);
 	if (*x != _table.back().name || _table.back().name == NameEl)
 		return distance(_table.begin(), x);
 	return -1;
@@ -235,15 +231,12 @@ string VariableTable::SearchByNumber(int Index)
 
 int main()
 {
-	ConstTable t(Keywords + Base);
-	// cout << t.IndexByWord("While");
-	// cout << t.WordByIndex(3);
-	// cout << t.WordByIndex(10);
+	// ConstTable t(Keywords + Format);
+	// t.PrintTable(Keywords + OutFileFormat + Format);
 
-	//VariableTable t2("Words.txt");
-	//t2.SetAttribute("int", true, 1053240);
-	//auto x = t2.SearchByWord("int");
-	//t2.PrintTable("Жижа.txt");
-	// cout << t2.IsContains("Int");
-	// t.PrintTable();
+	VariableTable t2;
+	auto x = t2.SearchByWord("Value1");
+	cout << x << endl;
+	t2.SetAttribute("Value1", true, 100);
+	t2.PrintTable(Keywords + OutFileFormat + Format);
 }

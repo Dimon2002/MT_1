@@ -130,8 +130,8 @@
     <ClCompile Include="MT_1.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Words.txt" />
-    <Text Include="WordsOut.txt" />
+    <Text Include="Keywords.txt" />
+    <Text Include="KeywordsOut.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

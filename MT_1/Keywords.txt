@@ -1,0 +1,5 @@
+if
+while
+for
+else
+int

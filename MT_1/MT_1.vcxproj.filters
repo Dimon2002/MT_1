@@ -20,7 +20,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Words.txt" />
-    <Text Include="WordsOut.txt" />
+    <Text Include="Keywords.txt" />
+    <Text Include="KeywordsOut.txt" />
   </ItemGroup>
 </Project>
