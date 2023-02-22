@@ -9,6 +9,7 @@ static const string Format = ".txt";
 static const string Keywords = "Keywords";
 static const string Separators = "Separators";
 static const string OperationSigns = "OperationSigns";
+static const string VariableFile = "VariableTable";
 static const string OutFileFormat = "Out";
 
 #pragma region ConstTable
@@ -97,6 +98,7 @@ struct Lexeme
 	}
 
 	Lexeme() {}
+
 	friend bool operator == (const Lexeme& leftOperand, const Lexeme& rightOperand)
 	{
 		return
@@ -140,6 +142,9 @@ public:
 	Lexeme SearchByIndex(int Index);
 
 	void SetAttribute(const string& NameVariable, bool TypeVariable, int ValueVariable);
+	void SetAttribute(int Index, bool Type);
+	void SetAttribute(int Index, int Value);
+
 	pair<bool, int> GetAttribute(int Index);
 	string SearchByNumber(int Index);
 
@@ -169,6 +174,20 @@ void VariableTable::SetAttribute(const string& NameVariable, bool TypeVariable, 
 	auto indexElement = SearchByWord(NameVariable);
 	_table[indexElement].type = TypeVariable;
 	_table[indexElement].value = ValueVariable;
+}
+
+void VariableTable::SetAttribute(int Index, bool Type)
+{
+	if (IsContains(Index) == -1) 
+		return;
+	_table[Index].type = Type;
+}
+
+void VariableTable::SetAttribute(int Index, int Value)
+{
+	if (IsContains(Index) == -1)
+		return;	
+	_table[Index].value = Value;
 }
 
 void VariableTable::PrintTable(const string& outFileName)
@@ -202,7 +221,7 @@ int VariableTable::SearchByWord(const string& NameVariable)
 	if (indexElement == -1)
 	{
 		AddingElement(Lexeme(NameVariable));
-		return indexElement + 1;
+		return static_cast<unsigned long long>(indexElement) + _table.size();
 	}
 	return indexElement;
 }
@@ -237,8 +256,10 @@ int main()
 	// t.PrintTable(Keywords + OutFileFormat + Format);
 
 	VariableTable t2;
-	auto x = t2.SearchByWord("Value1");
-	cout << x << endl;
-	// t2.SetAttribute("Value1", true, 100);
-	t2.PrintTable(Keywords + OutFileFormat + Format);
+	int x = t2.SearchByWord("Value1");
+	t2.SetAttribute(x, 150);
+	x = t2.SearchByWord("Value2");
+	t2.SetAttribute(x, true);
+	// cout << x << endl;
+	t2.PrintTable(VariableFile + OutFileFormat + Format);
 }

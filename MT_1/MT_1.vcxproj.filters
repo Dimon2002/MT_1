@@ -21,6 +21,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Keywords.txt" />
-    <Text Include="KeywordsOut.txt" />
+    <Text Include="VariableTableOut.txt" />
   </ItemGroup>
 </Project>

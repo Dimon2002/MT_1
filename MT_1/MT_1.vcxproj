@@ -131,7 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Keywords.txt" />
-    <Text Include="KeywordsOut.txt" />
+    <Text Include="VariableTableOut.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
